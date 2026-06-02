@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* ─── Brand Token Layer ─────────────────────────────── */
+@layer base {
+  :root {
+    --brand-sky: #5cb3f9;
+    --brand-slate: #1a2530;
+    --brand-blue: #2572b4;
+    --brand-slate-light: #243040;
+    --brand-sky-muted: #a8d8fd;
+
+    --bg-primary: #0d1620;
+    --bg-secondary: #1a2530;
+    --bg-card: rgba(26, 37, 48, 0.7);
+
+    --text-primary: #f0f6ff;
+    --text-secondary: #94afc7;
+    --text-muted: #5a7a99;
+
+    --border-subtle: rgba(92, 179, 249, 0.12);
+    --border-glow: rgba(92, 179, 249, 0.35);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-jakarta), "Montserrat", sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background-color: rgba(92, 179, 249, 0.3);
+    color: #f0f6ff;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-blue);
+    border-radius: 3px;
+  }
+}
+
+/* ─── Utility Classes ───────────────────────────────── */
+@layer utilities {
+  .glass {
+    background: rgba(26, 37, 48, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(92, 179, 249, 0.12);
+  }
+
+  .glass-light {
+    background: rgba(92, 179, 249, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(92, 179, 249, 0.15);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #5cb3f9 0%, #a8d8fd 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, #5cb3f9 0%, #2572b4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-sky {
+    box-shadow: 0 0 32px rgba(92, 179, 249, 0.25);
+  }
+
+  .glow-sky-sm {
+    box-shadow: 0 0 16px rgba(92, 179, 249, 0.2);
+  }
+
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+}
