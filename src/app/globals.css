@@ -1,26 +1,97 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   DHAKA FOUNDERS — Global Stylesheet
+   Tailwind CSS v4 · CSS-first configuration via @theme
+   Brand source: brand-dna.md
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @import "tailwindcss";
 
-/* ─── Brand Token Layer ─────────────────────────────── */
-@layer base {
-  :root {
-    --brand-sky: #5cb3f9;
-    --brand-slate: #1a2530;
-    --brand-blue: #2572b4;
-    --brand-slate-light: #243040;
-    --brand-sky-muted: #a8d8fd;
+/* ─── Tailwind v4 Theme — Single Source of Truth ────────────────────────────
+   All tokens registered here become first-class Tailwind utility classes.
+   e.g. --color-brand-sky  →  bg-brand-sky / text-brand-sky / border-brand-sky
+        --font-heading      →  font-heading
+        --animate-fade-up   →  animate-fade-up
+   ─────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* ── Brand Colors (from brand-dna.md) ─────────────────────────── */
+  /* Primary   — Sky Blue  : energetic hero gradient & button highlights */
+  --color-brand-sky:        #5cb3f9;
+  --color-brand-sky-muted:  #a8d8fd;
 
-    --bg-primary: #0d1620;
-    --bg-secondary: #1a2530;
-    --bg-card: rgba(26, 37, 48, 0.7);
+  /* Secondary — Dark Slate: dark backgrounds, footer, high-contrast sections */
+  --color-brand-slate:      #1a2530;
+  --color-brand-slate-light:#243040;
 
-    --text-primary: #f0f6ff;
-    --text-secondary: #94afc7;
-    --text-muted: #5a7a99;
+  /* Accent    — Button Blue: primary CTAs on both light & dark backgrounds */
+  --color-brand-blue:       #2572b4;
+  --color-brand-blue-dark:  #1e5d99;
 
-    --border-subtle: rgba(92, 179, 249, 0.12);
-    --border-glow: rgba(92, 179, 249, 0.35);
+  /* ── Semantic Surface Colors ───────────────────────────────────── */
+  --color-surface-base:     #0d1620;   /* deepest bg — page root */
+  --color-surface-raised:   #1a2530;   /* cards, sections */
+  --color-surface-card:     rgba(26, 37, 48, 0.70);
+
+  /* ── Semantic Text Colors ──────────────────────────────────────── */
+  --color-text-base:        #f0f6ff;
+  --color-text-muted:       #94afc7;
+  --color-text-subtle:      #5a7a99;
+
+  /* ── Border Colors ─────────────────────────────────────────────── */
+  --color-border-subtle:    rgba(92, 179, 249, 0.12);
+  --color-border-glow:      rgba(92, 179, 249, 0.35);
+
+  /* ── Typography (from brand-dna.md Google Fonts section) ──────── */
+  /* next/font/google injects --font-jakarta & --font-inter via layout.tsx  */
+  --font-heading: var(--font-jakarta), "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    var(--font-inter),   ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Box Shadows ───────────────────────────────────────────────── */
+  --shadow-brand-glow:  0 0 32px rgba(92, 179, 249, 0.25);
+  --shadow-brand-glow-sm: 0 0 16px rgba(92, 179, 249, 0.20);
+  --shadow-card-hover:  0 20px 60px rgba(0, 0, 0, 0.40);
+  --shadow-glass:       0 4px 32px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  /* ── Backdrop Blur ─────────────────────────────────────────────── */
+  --blur-xs: 2px;
+
+  /* ── Background Gradients ──────────────────────────────────────── */
+  --background-hero-gradient:
+    linear-gradient(135deg, #0f1923 0%, #1a2530 40%, #1e3a5f 70%, #2572b4 100%);
+  --background-card-gradient:
+    linear-gradient(135deg, rgba(92, 179, 249, 0.08) 0%, rgba(37, 114, 180, 0.05) 100%);
+
+  /* ── Animations ────────────────────────────────────────────────── */
+  --animate-fade-up:  fadeUp  0.6s ease-out forwards;
+  --animate-fade-in:  fadeIn  0.4s ease-out forwards;
+  --animate-slide-in: slideIn 0.5s ease-out forwards;
+  --animate-shimmer:  shimmer 2s linear infinite;
+  --animate-float:    float   6s ease-in-out infinite;
+
+  /* ── Keyframes ─────────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0);    }
   }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-16px); }
+    to   { opacity: 1; transform: translateX(0);     }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to   { background-position:  200% 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px);   }
+    50%       { transform: translateY(-12px); }
+  }
+}
 
+/* ─── Base Layer — Resets & Global Defaults ─────────────────────────────── */
+@layer base {
   *,
   *::before,
   *::after {
@@ -33,50 +104,56 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color-scheme: dark;
   }
 
   body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: var(--font-inter), system-ui, sans-serif;
+    background-color: var(--color-surface-base);
+    color: var(--color-text-base);
+    font-family: var(--font-body);
     min-height: 100dvh;
     overflow-x: hidden;
+    line-height: 1.6;
   }
 
+  /* Headings — Plus Jakarta Sans (brand-dna.md: geometric sans-serif) */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-jakarta), "Montserrat", sans-serif;
+    font-family: var(--font-heading);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
   }
 
+  /* Text selection — brand primary sky */
   ::selection {
-    background-color: rgba(92, 179, 249, 0.3);
-    color: #f0f6ff;
+    background-color: rgba(92, 179, 249, 0.30);
+    color: var(--color-text-base);
   }
 
   /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--bg-primary);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--brand-blue);
-    border-radius: 3px;
+  ::-webkit-scrollbar        { width: 6px; }
+  ::-webkit-scrollbar-track  { background: var(--color-surface-base); }
+  ::-webkit-scrollbar-thumb  { background: var(--color-brand-blue); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-brand-sky); }
+
+  /* Focus ring — brand sky for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-sky);
+    outline-offset: 2px;
   }
 }
 
-/* ─── Utility Classes ───────────────────────────────── */
+/* ─── Utilities — Composable Design-System Helpers ──────────────────────── */
 @layer utilities {
+  /* Glassmorphism — dark variant (sidebars, navbars, modals) */
   .glass {
-    background: rgba(26, 37, 48, 0.6);
+    background: rgba(26, 37, 48, 0.60);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(92, 179, 249, 0.12);
+    border: 1px solid var(--color-border-subtle);
   }
 
+  /* Glassmorphism — light variant (chips, badges, hover states) */
   .glass-light {
     background: rgba(92, 179, 249, 0.06);
     backdrop-filter: blur(12px);
@@ -84,34 +161,42 @@
     border: 1px solid rgba(92, 179, 249, 0.15);
   }
 
+  /* Gradient text — Primary: sky → sky-muted → white */
   .text-gradient {
-    background: linear-gradient(135deg, #5cb3f9 0%, #a8d8fd 50%, #ffffff 100%);
+    background: linear-gradient(135deg,
+      var(--color-brand-sky)       0%,
+      var(--color-brand-sky-muted) 50%,
+      #ffffff                      100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
+  /* Gradient text — Accent: sky → button-blue */
   .text-gradient-warm {
-    background: linear-gradient(135deg, #5cb3f9 0%, #2572b4 100%);
+    background: linear-gradient(135deg,
+      var(--color-brand-sky)  0%,
+      var(--color-brand-blue) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .glow-sky {
-    box-shadow: 0 0 32px rgba(92, 179, 249, 0.25);
-  }
+  /* Glow shadows — brand sky */
+  .glow-sky    { box-shadow: var(--shadow-brand-glow);    }
+  .glow-sky-sm { box-shadow: var(--shadow-brand-glow-sm); }
 
-  .glow-sky-sm {
-    box-shadow: 0 0 16px rgba(92, 179, 249, 0.2);
-  }
-
+  /* Animation delay helpers */
   .animate-delay-100 { animation-delay: 100ms; }
   .animate-delay-200 { animation-delay: 200ms; }
   .animate-delay-300 { animation-delay: 300ms; }
   .animate-delay-400 { animation-delay: 400ms; }
   .animate-delay-500 { animation-delay: 500ms; }
+  .animate-delay-700 { animation-delay: 700ms; }
 
+  /* Subtle noise texture overlay (opacity set at use-site) */
   .bg-noise {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   }
